@@ -11,6 +11,11 @@
 # production
 /build
 
+#config
+.editorconfig
+.prettierrc
+tslint.json
+
 # misc
 .DS_Store
 .env.local

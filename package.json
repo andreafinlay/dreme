@@ -18,7 +18,8 @@
     "start": "yarn run build:css && purgecss -c ./purgecss.config.ts -o ./src/layouts && react-scripts start",
     "build": "yarn run build:css && purgecss -c ./purgecss.config.ts -o ./src/styles && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "tslint": "tslint --project tsconfig.json --format stylish \"src/**/*.tsx\""
   },
   "eslintConfig": {
     "extends": "react-app"

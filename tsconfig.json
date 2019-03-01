@@ -1,32 +1,32 @@
 {
-  "compilerOptions": {
-    "target": "es6",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-      "scripthost",
-      "es6",
-      "es2015.core",
-      "es2015.proxy",
-      "es7"
-    ],
-    "allowJs": true,
-    "noImplicitAny": false,
-    "skipLibCheck": true,
-    "removeComments": false,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "jsx": "preserve"
-  },
-  "include": ["src"]
+    "compilerOptions": {
+        "target": "es6",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext",
+            "scripthost",
+            "es6",
+            "es2015.core",
+            "es2015.proxy",
+            "es7"
+        ],
+        "allowJs": true,
+        "noImplicitAny": false,
+        "skipLibCheck": true,
+        "removeComments": false,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "jsx": "preserve"
+    },
+    "include": ["src", "src/setupTests.ts"]
 }

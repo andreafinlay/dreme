@@ -11,7 +11,7 @@
             "es2015.proxy",
             "es7"
         ],
-        "allowJs": true,
+        "allowJs": false,
         "noImplicitAny": false,
         "skipLibCheck": true,
         "removeComments": false,
@@ -22,11 +22,11 @@
         "module": "esnext",
         "moduleResolution": "node",
         "resolveJsonModule": true,
-        "isolatedModules": true,
         "noEmit": true,
         "preserveConstEnums": true,
         "sourceMap": true,
-        "jsx": "preserve"
+        "jsx": "preserve",
+        "isolatedModules": true
     },
     "include": ["src", "src/setupTests.ts"]
 }

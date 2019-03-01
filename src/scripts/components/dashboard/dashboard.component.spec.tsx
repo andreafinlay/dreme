@@ -1,9 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
+
 import Dashboard from './dashboard.component';
 
-xit('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<Dashboard />, div);
-    ReactDOM.unmountComponentAtNode(div);
+describe('init', () => {
+    const component = shallow(<Dashboard />);
+
+    it('should render correctly', () => {
+        expect(component).toBeDefined();
+        expect(component).toMatchSnapshot();
+    });
+
+    it('should set initial state', () => {
+        expect(component.state()).toEqual(null);
+    });
 });

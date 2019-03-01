@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/enzyme": "^3.9.0",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/jest": "^24.0.9",
     "@types/node": "^11.9.6",
     "@types/react": "^16.8.6",
@@ -12,6 +14,11 @@
     "react-dom": "^16.8.3",
     "react-scripts": "2.1.5",
     "typescript": "^3.3.3333"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   },
   "scripts": {
     "build:css": "tailwind build ./src/styles/index.tailwind.css -c ./tailwind.config.ts -o ./src/index.css",
@@ -32,6 +39,9 @@
   ],
   "devDependencies": {
     "autoprefixer": "^9.4.9",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
+    "enzyme-to-json": "^3.3.5",
     "prettier": "^1.15.3",
     "purgecss": "^1.0.1",
     "tailwindcss": "^0.7.4",

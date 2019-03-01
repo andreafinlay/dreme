@@ -16,9 +16,6 @@
 .prettierrc
 tslint.json
 
-#test
-*.snap
-
 # misc
 .DS_Store
 .env.local

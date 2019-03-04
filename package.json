@@ -10,7 +10,14 @@
     "@types/react": "^16.8.6",
     "@types/react-dom": "^16.8.2",
     "@uirouter/react": "^0.8.9",
+    "apollo-boost": "^0.3.1",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.1.1",
+    "graphql-tag": "^2.10.1",
     "react": "^16.8.3",
+    "react-apollo": "^2.5.1",
     "react-dom": "^16.8.3",
     "react-scripts": "2.1.5",
     "typescript": "^3.3.3333"
@@ -22,7 +29,10 @@
   },
   "scripts": {
     "build:css": "tailwind build ./src/styles/index.tailwind.css -c ./tailwind.config.ts -o ./src/index.css",
-    "start": "yarn run build:css && purgecss -c ./purgecss.config.ts -o ./src/layouts && react-scripts start",
+    "start:client": "yarn run build:css && purgecss -c ./purgecss.config.ts -o ./src/layouts && react-scripts start",
+    "start:server": "node src/server",
+    "watch:server": "nodemon --watch src/server src/server",
+    "start": "npm-run-all --parallel watch:server start:client",
     "build": "yarn run build:css && purgecss -c ./purgecss.config.ts -o ./src/styles && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -42,10 +52,12 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.10.0",
     "enzyme-to-json": "^3.3.5",
+    "nodemon": "^1.18.10",
     "prettier": "^1.15.3",
     "purgecss": "^1.0.1",
     "tailwindcss": "^0.7.4",
     "tslint": "5.9.1",
-    "tslint-plugin-prettier": "^2.0.1"
+    "tslint-plugin-prettier": "^2.0.1",
+    "yarn-run-all": "^3.1.1"
   }
 }

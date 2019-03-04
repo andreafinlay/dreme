@@ -1,18 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`init should render correctly 1`] = `
-<div
-  className="bg-dreme"
->
-  <header>
-    Zzz
-  </header>
-  <UISref
-    to="journal"
+<div>
+  <div
+    className="bg-dreme"
   >
-    <a>
-      Journal
-    </a>
-  </UISref>
+    <header>
+      Zzz
+    </header>
+    <UISref
+      to="journal"
+    >
+      <a>
+        Journal
+      </a>
+    </UISref>
+  </div>
+  <Entries />
 </div>
 `;

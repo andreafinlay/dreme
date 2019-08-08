@@ -5,8 +5,8 @@ import { ApolloProvider } from 'react-apollo';
 import client from './apollo';
 
 import './index.css';
-import Dashboard from './scripts/components/dashboard/dashboard.component';
-import Journal from './scripts/components/journal/journal.component';
+import Dashboard from './components/dashboard/dashboard.component';
+import Journal from './components/journal/journal.component';
 
 const states = [
     {

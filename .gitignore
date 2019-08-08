@@ -16,6 +16,7 @@
 .prettierrc
 tslint.json
 .env
+.npmrc
 
 # misc
 .DS_Store

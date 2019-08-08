@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { UISref } from '@uirouter/react';
-
 import Entries from '../entries/entries.component';
 
 class Dashboard extends Component {

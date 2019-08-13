@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { UISref } from '@uirouter/react';
-import { Entries } from '../../components/Entries';
 import { Users } from '../../components/Users';
 
 const Dashboard: React.FC<any> = () => {
@@ -12,7 +11,6 @@ const Dashboard: React.FC<any> = () => {
                     <a>Journal</a>
                 </UISref>
             </div>
-            <Entries />
             <Users />
         </div>
     );

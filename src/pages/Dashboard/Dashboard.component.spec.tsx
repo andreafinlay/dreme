@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
-import Dashboard from './dashboard.component';
+import { Dashboard } from './Dashboard.component';
 
 describe('init', () => {
     const component = shallow(<Dashboard />);

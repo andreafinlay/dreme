@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/react-hooks": "^3.0.0",
     "@types/enzyme": "^3.9.0",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/jest": "^24.0.9",
@@ -11,14 +12,19 @@
     "@types/react-dom": "^16.8.2",
     "@uirouter/react": "^0.8.9",
     "apollo-boost": "^0.3.1",
+    "apollo-cache-inmemory": "^1.6.3",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
     "postgraphile": "^4.4.2",
     "react": "^16.8.3",
     "react-apollo": "^2.5.1",
     "react-dom": "^16.8.3",
     "react-scripts": "2.1.5",
-    "typescript": "^3.3.3333"
+    "sequelize": "^5.13.0",
+    "typescript": "^3.3.3333",
+    "uuid": "^3.3.2"
   },
   "jest": {
     "snapshotSerializers": [

@@ -3,7 +3,7 @@
 exports[`init should render correctly 1`] = `
 <div>
   <div
-    className="bg-dreme"
+    className="bg-dreme flex"
   >
     <header>
       Zzz
@@ -17,5 +17,6 @@ exports[`init should render correctly 1`] = `
     </UISref>
   </div>
   <Entries />
+  <Users />
 </div>
 `;

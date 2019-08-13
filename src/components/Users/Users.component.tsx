@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useMutation, useQuery, ApolloConsumer } from '@apollo/react-hooks';
 import uuidv4 from 'uuid/v4';
-import { RootContext } from '../../index';
+import { RootContext } from '../../App';
 import { GET_USERS } from './Users.queries';
 import { CREATE_USER } from './Users.mutations';
 

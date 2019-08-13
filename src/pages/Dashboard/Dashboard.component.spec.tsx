@@ -9,8 +9,4 @@ describe('init', () => {
         expect(component).toBeDefined();
         expect(component).toMatchSnapshot();
     });
-
-    it('should set initial state', () => {
-        expect(component.state()).toEqual(null);
-    });
 });

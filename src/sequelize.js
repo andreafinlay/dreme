@@ -9,7 +9,6 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, null, 
 const User = sequelize.define('user', {
     id: {
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV1,
         primaryKey: true,
     },
     name: {
@@ -20,6 +19,9 @@ const User = sequelize.define('user', {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
+    },
+    password_hash: {
+        type: Sequelize.STRING,
     },
     createdAt: {
         type: Sequelize.DATE,
@@ -63,15 +65,10 @@ const Entry = sequelize.define('entry', {
 User.hasMany(Entry);
 
 User.sync({ force: true }).then(() => {
-    return User.create({
-        name: 'Kevin Fortin',
-        email: 'owlofminerva666@gmail.com',
-    }).then(() => {
-        Entry.sync({ force: true }).then(() => {
-            return Entry.create({
-                title: 'A Prolegamena To An Emancipatory Theory Of Time',
-                body: 'poo poo pee pee',
-            });
+    Entry.sync({ force: true }).then(() => {
+        return Entry.create({
+            title: 'A Prolegamena To An Emancipatory Theory Of Time',
+            body: 'poo poo pee pee',
         });
     });
 });

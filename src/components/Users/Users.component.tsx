@@ -1,112 +1,77 @@
-import React, { useState, useContext } from 'react';
-import { useMutation, useQuery, ApolloConsumer } from '@apollo/react-hooks';
-import uuidv4 from 'uuid/v4';
-import { RootContext } from '../../App';
-import { GET_USERS } from './Users.queries';
-import { CREATE_USER } from './Users.mutations';
-
-const RegisterForm: React.FC<any> = () => {
-    let nameInput;
-    let emailInput;
-
-    const [newUser, setNewUser] = useState();
-    const [createUser] = useMutation(CREATE_USER);
-    let { authenticated, authBody } = useContext(RootContext);
-
-    if (newUser) {
-        authenticated = true;
-        authBody = 'asdfafasdf';
-    }
-    console.log('authenticated', authenticated);
-    console.log('authbody', authBody);
-
-    return (
-        <ApolloConsumer>
-            {client => {
-                return (
-                    <div>
-                        <br />
-                        <h1>Register</h1>
-                        <br />
-                        <form
-                            style={{ border: 'solid 1px black', width: '500px' }}
-                            onSubmit={e => {
-                                e.preventDefault();
-                                createUser({
-                                    variables: {
-                                        name: nameInput.value,
-                                        createdAt: new Date().toISOString(),
-                                        updatedAt: new Date().toISOString(),
-                                        email: emailInput.value,
-                                        id: uuidv4(),
-                                    },
-                                    refetchQueries: [{ query: GET_USERS }],
-                                }).then(res => setNewUser(res));
-                                nameInput.value = '';
-                                emailInput.value = '';
-                            }}
-                        >
-                            <input
-                                ref={node => {
-                                    nameInput = node;
-                                }}
-                                placeholder='Name'
-                            />
-                            <input
-                                ref={node => {
-                                    emailInput = node;
-                                }}
-                                placeholder='Email'
-                            />
-                            <button style={{ backgroundColor: 'red' }} type='submit'>
-                                Create User
-                            </button>
-                        </form>
-                        <br />
-                    </div>
-                );
-            }}
-        </ApolloConsumer>
-    );
-};
+import React, { useContext, useState, useEffect } from 'react';
+import {} from 'dotenv/config';
+import { useQuery, ApolloConsumer, useMutation } from '@apollo/react-hooks';
+import { GET_ENTRIES } from '../Entries/Entries.queries';
+import { RegisterForm } from '../Register/Register.component';
+import { LoginForm } from '../Login/Login.component';
+import { LogoutForm } from '../Logout/Logout.component';
+import { RootContext } from '../../context/RootContext';
+import { NewEntryForm } from '../Entries/Entries.component';
+import { GET_CURRENT_USER } from './Users.mutations';
 
 const Users: React.FC<any> = () => {
-    const { data, loading } = useQuery(GET_USERS);
-    let { authenticated } = useContext(RootContext);
+    const [currentUser, setCurrentUser] = useState();
+    const { data, loading } = useQuery(GET_ENTRIES);
+    const [getCurrentUser] = useMutation(GET_CURRENT_USER);
+    const { authenticated, authBody } = useContext(RootContext);
+
+    useEffect(() => {
+        getCurrentUser({
+            variables: {
+                token: authBody,
+                secret: process.env.REACT_APP_JWT_SECRET!,
+            },
+        }).then(res => {
+            setCurrentUser(res && res.data.currentUserId.uuid);
+        });
+    }, [authBody]);
+
+    console.log('authenticated', authenticated);
 
     return (
         <ApolloConsumer>
             {client => {
                 return (
                     <>
-                        {authenticated && (
+                        <h1>Hello, {currentUser}</h1>
+                        {authenticated ? (
                             <div>
                                 {loading && <div>Loading...</div>}
                                 {!loading && (
                                     <div>
-                                        <h2>List of users</h2>
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>User</th>
-                                                    <th>Email</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {data &&
-                                                    data.allUsers.nodes.map(user => (
-                                                        <tr key={user.id}>
-                                                            <td>{user.name}</td>
-                                                            <td>{user.email}</td>
-                                                        </tr>
-                                                    ))}
-                                            </tbody>
-                                        </table>
+                                        <div>
+                                            <NewEntryForm />
+                                            <br />
+                                            <h3>List of entries</h3>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Title</th>
+                                                        <th>Body</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {data &&
+                                                        data.allEntries.nodes.map(entry => (
+                                                            <tr key={entry.id}>
+                                                                <td>{entry.title}</td>
+                                                                <td>{entry.body}</td>
+                                                            </tr>
+                                                        ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 )}
+                                <LogoutForm />
+                            </div>
+                        ) : (
+                            <div>
+                                <RegisterForm />
+                                <LoginForm />
+                                <LogoutForm />
                             </div>
                         )}
-                        <RegisterForm />
                     </>
                 );
             }}

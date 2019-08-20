@@ -4,7 +4,7 @@ import { Users } from '../../components/Users';
 
 const Dashboard: React.FC<any> = () => {
     return (
-        <div>
+        <>
             <div className='bg-dreme flex'>
                 <header>Zzz</header>
                 <UISref to='journal'>
@@ -12,7 +12,7 @@ const Dashboard: React.FC<any> = () => {
                 </UISref>
             </div>
             <Users />
-        </div>
+        </>
     );
 };
 

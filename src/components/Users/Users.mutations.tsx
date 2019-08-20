@@ -1,32 +1,12 @@
 import gql from 'graphql-tag';
 
-const CREATE_USER = gql`
-    mutation CreateUser(
-        $name: String!
-        $createdAt: Datetime!
-        $updatedAt: Datetime!
-        $email: String!
-        $id: UUID!
-    ) {
+const GET_CURRENT_USER = gql`
+    mutation GetCurrentUser($token: String!, $secret: String!) {
         __typename
-        createUser(
-            input: {
-                user: {
-                    name: $name
-                    email: $email
-                    id: $id
-                    createdAt: $createdAt
-                    updatedAt: $updatedAt
-                }
-            }
-        ) {
-            user {
-                name
-                email
-                id
-            }
+        currentUserId(input: { token: $token, secret: $secret }) {
+            uuid
         }
     }
 `;
 
-export { CREATE_USER };
+export { GET_CURRENT_USER };

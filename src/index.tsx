@@ -1,35 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { UIRouter, UIView, pushStateLocationPlugin } from '@uirouter/react';
-import { ApolloProvider } from '@apollo/react-hooks';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { ApolloProvider, ApolloConsumer } from '@apollo/react-hooks';
+
 import { client } from './apollo';
 import './index.css';
 
 import { Authenticate } from './context/RootContext';
 import { Dashboard } from './pages/Dashboard';
 import { Journal } from './pages/Journal/';
-
-const states = [
-    {
-        name: 'dashboard',
-        url: '/',
-        component: Dashboard,
-    },
-    {
-        name: 'journal',
-        url: '/journal',
-        component: Journal,
-    },
-];
-
-const plugins = [pushStateLocationPlugin];
+import { NotFound } from './pages/NotFound';
 
 ReactDOM.render(
     <ApolloProvider client={client}>
         <Authenticate>
-            <UIRouter plugins={plugins} states={states}>
-                <UIView />
-            </UIRouter>
+            <ApolloConsumer>
+                {client => (
+                    <Router>
+                        <Switch>
+                            <Route exact path='/' component={Dashboard} />
+                            <Route path='/journal' component={Journal} />
+                            <Route component={NotFound} />
+                        </Switch>
+                    </Router>
+                )}
+            </ApolloConsumer>
         </Authenticate>
     </ApolloProvider>,
     document.getElementById('root'),

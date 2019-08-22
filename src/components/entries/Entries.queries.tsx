@@ -1,16 +1,16 @@
 import gql from 'graphql-tag';
 
-const GET_ENTRIES = gql`
-    query GetEntries {
-        allEntries {
+const GET_ENTRIES_BY_USERID = gql`
+    query GetEntriesByUserId($userId: UUID!) {
+        __typename
+        allEntries(condition: { userId: $userId }) {
             nodes {
                 body
-                id
                 title
-                userId
+                id
             }
         }
     }
 `;
 
-export { GET_ENTRIES };
+export { GET_ENTRIES_BY_USERID };

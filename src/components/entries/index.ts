@@ -1,1 +1,2 @@
-export * from './Entries.component';
+export * from './EntriesList';
+export * from './NewEntryForm';

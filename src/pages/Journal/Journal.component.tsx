@@ -1,14 +1,16 @@
 import React from 'react';
-import { UISref } from '@uirouter/react';
+import { Link } from 'react-router-dom';
+import { EntriesList } from '../../components/Entries/EntriesList';
 
 const Journal: React.FC<any> = () => {
     return (
-        <div className='bg-red'>
-            <header>Journal</header>
-            <UISref to='dashboard'>
-                <a>Dashboard</a>
-            </UISref>
-        </div>
+        <>
+            <div className='bg-red'>
+                <header>Journal</header>
+            </div>
+            <Link to='/'>Dashboard</Link>
+            <EntriesList />
+        </>
     );
 };
 

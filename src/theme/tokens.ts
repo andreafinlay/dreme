@@ -1,0 +1,9 @@
+export type FontSize = 'xs' | 'sm' | 'base' | 'md' | 'lg' | 'xl' | 'xxl' | 'jb' | 'mg';
+export type FontWeight = 'light' | 'regular' | 'bold' | 'extrabold';
+export type ContainersSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+export type Contrast = 'high' | 'base' | 'low';
+export type SpacingSize = 'none' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'jb' | 'mg';
+export type Spacing = SpacingSize | number | 'auto';
+export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;

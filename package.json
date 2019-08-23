@@ -19,6 +19,7 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
+    "polished": "^3.4.1",
     "postgraphile": "^4.4.2",
     "react": "^16.8.3",
     "react-apollo": "^2.5.1",
@@ -26,6 +27,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "2.1.5",
     "sequelize": "^5.13.0",
+    "styled-components": "^5.0.0-beta.8",
     "typescript": "^3.3.3333",
     "uuid": "^3.3.2"
   },
@@ -35,8 +37,7 @@
     ]
   },
   "scripts": {
-    "build:css": "tailwind build ./src/styles/index.tailwind.css -c ./tailwind.config.ts -o ./src/index.css",
-    "start:client": "yarn run build:css && purgecss -c ./purgecss.config.ts -o ./src/layouts && react-scripts start",
+    "start:client": "react-scripts start",
     "watch:server": "postgraphile -c postgres:///$npm_config_db --jwt-token-identifier public.jwt_token --jwt-secret $npm_config_secret -s public --cors --watch --enhance-graphiql --dynamic-json",
     "start": "npm-run-all --parallel watch:server start:client",
     "build": "yarn run build:css && purgecss -c ./purgecss.config.ts -o ./src/styles && react-scripts build",
@@ -61,7 +62,6 @@
     "nodemon": "^1.18.10",
     "prettier": "^1.15.3",
     "purgecss": "^1.0.1",
-    "tailwindcss": "^0.7.4",
     "tslint": "5.9.1",
     "tslint-plugin-prettier": "^2.0.1",
     "yarn-run-all": "^3.1.1"

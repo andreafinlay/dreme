@@ -1,16 +1,21 @@
 import React, { useContext } from 'react';
 import { withRouter } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { RootContext } from '../../context/RootContext';
+import { StyledNavBarButton } from '../NavBar/styled';
 
-const Logout: React.FC<any> = ({ ...props }) => {
+const StyledLogoutButton = styled(StyledNavBarButton)`
+    &:last-child {
+        margin-right: 0;
+    }
+`;
+
+const LogoutComponent: React.FC<any> = ({ ...props }) => {
     const { setAuthenticated, setToken, setName, setUserId } = useContext(RootContext);
 
     return (
         <>
-            <br />
-            <h1>Log out</h1>
-            <br />
             <form
                 onSubmit={e => {
                     e.preventDefault();
@@ -21,15 +26,12 @@ const Logout: React.FC<any> = ({ ...props }) => {
                     props.history.push('/');
                 }}
             >
-                <button style={{ backgroundColor: 'green' }} type='submit'>
-                    Log out
-                </button>
+                <StyledLogoutButton type='submit'>Log out</StyledLogoutButton>
             </form>
-            <br />
         </>
     );
 };
 
-const LogoutForm = withRouter(Logout);
+const Logout = withRouter(LogoutComponent);
 
-export { LogoutForm };
+export { Logout };

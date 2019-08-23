@@ -3,7 +3,6 @@ import {} from 'dotenv/config';
 import { useQuery } from '@apollo/react-hooks';
 
 import { RootContext } from '../../../context/RootContext';
-import { LogoutForm } from '../../Logout/Logout.component';
 import { NewEntryForm } from '../NewEntryForm';
 import { GET_ENTRIES_BY_USERID } from '../Entries.queries';
 
@@ -45,7 +44,6 @@ const EntriesList: React.FC<any> = () => {
                             </div>
                         </div>
                     )}
-                    <LogoutForm />
                 </div>
             )}
         </>

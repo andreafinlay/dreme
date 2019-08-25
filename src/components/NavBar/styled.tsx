@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { NavBarProps } from './NavBar.component';
-import { palette, spacing, fontSize } from '../../utils';
+import { palette, spacing } from '../../utils';
 import { Button } from '../Button';
 
 const StyledNavBar = styled('div')`

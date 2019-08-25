@@ -3,8 +3,8 @@ import {} from 'dotenv/config';
 import { useQuery } from '@apollo/react-hooks';
 
 import { RootContext } from '../../../context/RootContext';
-import { NewEntryForm } from '../NewEntryForm';
 import { GET_ENTRIES_BY_USERID } from '../Entries.queries';
+import { Heading } from '../../Heading';
 
 const EntriesList: React.FC<any> = () => {
     const { authenticated, userId } = useContext(RootContext);
@@ -20,9 +20,7 @@ const EntriesList: React.FC<any> = () => {
                     {!loading && (
                         <div>
                             <div>
-                                <NewEntryForm />
-                                <br />
-                                <h3>List of entries</h3>
+                                <Heading as='h1'>Entries</Heading>
                                 <table>
                                     <thead>
                                         <tr>

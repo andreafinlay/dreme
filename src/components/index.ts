@@ -1,4 +1,4 @@
 export * from './Entries';
-export * from './Register';
-export * from './Login';
+export * from './RegisterForm';
+export * from './LoginForm';
 export * from './Logout';

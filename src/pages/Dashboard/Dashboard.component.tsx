@@ -1,24 +1,35 @@
 import React, { useContext } from 'react';
+import { withRouter } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { RootContext } from '../../context/RootContext';
-import { LoginForm, RegisterForm } from '../../components';
+import { Heading } from '../../components/Heading';
 
-const Dashboard: React.FC<any> = () => {
+const StyledDashboard = styled('div')`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 85vh;
+`;
+
+const DashboardComponent: React.FC<any> = ({ ...props }) => {
     const { authenticated, name } = useContext(RootContext);
+
     return (
-        <>
+        <StyledDashboard>
             {authenticated ? (
                 <>
-                    <h1>Hello, {name}</h1>
+                    <Heading as='h1'>Hello, {name}</Heading>
+                    <Heading as='h2'>Dashboard</Heading>
                 </>
             ) : (
-                <>
-                    <RegisterForm />
-                    <LoginForm />
-                </>
+                <>{props.history.push('/')}</>
             )}
-        </>
+        </StyledDashboard>
     );
 };
+
+const Dashboard = withRouter(DashboardComponent);
 
 export { Dashboard };

@@ -8,6 +8,9 @@ import { theme } from '../src/theme';
 
 import { Authenticate } from './context/RootContext';
 import { NavBar } from './components/NavBar';
+import { Home } from './pages/Home';
+import { Register } from './pages/Register';
+import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
 import { Journal } from './pages/Journal/';
 import { NotFound } from './pages/NotFound';
@@ -22,7 +25,9 @@ ReactDOM.render(
                         <Router>
                             <NavBar />
                             <Switch>
-                                <Route exact path='/' component={Dashboard} />
+                                <Route exact path='/' component={Home} />
+                                <Route exact path='/register' component={Register} />
+                                <Route exact path='/login' component={Login} />
                                 <Route exact path='/dashboard' component={Dashboard} />
                                 <Route exact path='/journal' component={Journal} />
                                 <Route component={NotFound} />

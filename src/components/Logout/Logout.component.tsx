@@ -1,15 +1,8 @@
 import React, { useContext } from 'react';
 import { withRouter } from 'react-router-dom';
-import styled from 'styled-components';
 
 import { RootContext } from '../../context/RootContext';
-import { StyledNavBarButton } from '../NavBar/styled';
-
-const StyledLogoutButton = styled(StyledNavBarButton)`
-    &:last-child {
-        margin-right: 0;
-    }
-`;
+import { StyledLogoutButton } from './styled';
 
 const LogoutComponent: React.FC<any> = ({ ...props }) => {
     const { setAuthenticated, setToken, setName, setUserId } = useContext(RootContext);
@@ -26,7 +19,9 @@ const LogoutComponent: React.FC<any> = ({ ...props }) => {
                     props.history.push('/');
                 }}
             >
-                <StyledLogoutButton type='submit'>Log out</StyledLogoutButton>
+                <StyledLogoutButton variant='ghost' size='sm' kind='minimal' type='submit'>
+                    Log out
+                </StyledLogoutButton>
             </form>
         </>
     );

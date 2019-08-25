@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { NavBarProps } from './NavBar.component';
 import { palette, spacing } from '../../utils';
+import { Button } from '../Button';
 
 const StyledNavBar = styled('div')`
     display: flex;
@@ -10,6 +11,9 @@ const StyledNavBar = styled('div')`
     padding: ${spacing('md')} ${spacing('xl')} ${spacing('md')} ${spacing('xl')};
     color: ${palette('neutral', '700')};
     background-color: ${palette('primary', '500')};
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid ${palette('neutral', '900')};
 `;
 
 const StyledNavBarMenu = styled('div')<NavBarProps>`
@@ -19,7 +23,7 @@ const StyledNavBarMenu = styled('div')<NavBarProps>`
     width: 100%;
 `;
 
-const StyledNavBarButton = styled('button')`
+const StyledNavBarButton = styled(Button)`
     margin-left: ${spacing('sm')};
     margin-right: ${spacing('sm')};
     &:first-child {
@@ -28,25 +32,26 @@ const StyledNavBarButton = styled('button')`
     &:last-child {
         margin-right: ${spacing('xl')};
     }
-    color: ${palette('neutral', '700')};
-    background-color: transparent;
-    &:hover {
-        color: ${palette('neutral', '900')};
-    }
-    &:focus {
-        outline: none;
-    }
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
 `;
 
 const StyledNavBarUser = styled('div')`
     display: flex;
+    flex-shrink: 6;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     width: 100%;
-    max-width: 200px;
+    color: ${palette('neutral', '900')};
 `;
 
-export { StyledNavBar, StyledNavBarMenu, StyledNavBarButton, StyledNavBarUser };
+const StyledNavBarUserName = styled('div')`
+    margin-right: ${spacing('md')};
+    color: ${palette('neutral', '0')};
+`;
+
+export {
+    StyledNavBar,
+    StyledNavBarMenu,
+    StyledNavBarButton,
+    StyledNavBarUser,
+    StyledNavBarUserName,
+};

@@ -7,7 +7,6 @@ import { RootContext } from '../../../context/RootContext';
 import { CREATE_ENTRY } from '../Entries.mutations';
 import { GET_ENTRIES_BY_USERID } from '../Entries.queries';
 import { Input } from '../../Input';
-import { Button } from '../../Button';
 import { Form } from '../../Form';
 
 const NewEntryForm: React.FC<any> = () => {
@@ -15,18 +14,7 @@ const NewEntryForm: React.FC<any> = () => {
     const { authenticated, userId } = useContext(RootContext);
 
     const [values, setValues] = useState({});
-    const [touched, setTouched] = useState({});
-
-    let isDisabled = () => {
-        if (!touched['newEntryTitle'] || !touched['newEntryBody']) {
-            return true;
-        }
-        for (let value in values) {
-            if (values[value] === '') {
-                return true;
-            }
-        }
-    };
+    const [touched, setTouched] = useState({ component: 'newEntry' });
 
     const handleChange = ({ target }: React.FormEvent<any>) => {
         setTouched({
@@ -52,7 +40,7 @@ const NewEntryForm: React.FC<any> = () => {
         }).then(data => {
             if (data) {
                 setValues({});
-                setTouched({ newEntryTitle: false, newEntryBody: false });
+                setTouched({ component: 'newEntry' });
             }
         });
     };
@@ -60,7 +48,13 @@ const NewEntryForm: React.FC<any> = () => {
     return (
         <>
             {authenticated && (
-                <Form onSubmit={handleSubmit} noValidate>
+                <Form
+                    onSubmit={handleSubmit}
+                    noValidate
+                    buttonLabel='Create entry'
+                    touched={touched}
+                    values={values}
+                >
                     <Input
                         value={values['newEntryTitle'] || ''}
                         label='Title'
@@ -88,16 +82,6 @@ const NewEntryForm: React.FC<any> = () => {
                         isFull
                         isRequired
                     />
-                    <Button
-                        type='submit'
-                        kind='base'
-                        shape='rounded'
-                        size='xs'
-                        variant='primary'
-                        isDisabled={isDisabled()}
-                    >
-                        Create entry
-                    </Button>
                 </Form>
             )}
         </>

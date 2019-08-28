@@ -9,7 +9,6 @@ import { RootContext } from '../../context/RootContext';
 import { REGISTER } from './RegisterForm.mutations';
 import { LOGIN } from '../LoginForm/LoginForm.mutations';
 import { Input } from '../Input';
-import { Button } from '../Button';
 import { Form } from '../Form';
 
 // TODO: Get rid of jwt once authentication/RLS is enabled in Postgres

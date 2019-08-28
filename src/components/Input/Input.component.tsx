@@ -4,49 +4,50 @@ import { StyledInput } from './styled';
 import { FormElement } from '../../primitives/FormElement';
 
 export interface InputProps {
-    onChange?: Function;
     /** The value of the input */
     value: string;
-    /** The ID of the label */
-    id?: string;
+    /** Whether or not the input has been touched */
+    touched?: boolean;
     /** The name of the input */
     name: string;
     /** The type of the input */
     type: string;
+    /** The ID of the label */
+    id?: string;
     /** The label of the input */
     label?: string;
-    /** Hint to display under the input */
-    hint?: string;
     /** The placeholder of the input */
     placeholder: string;
+    /** Hint to display under the input */
+    hint?: string;
+    /** Function to call on value change */
+    onChange?: Function;
+    /** Whether or not the input is full width */
+    isFull?: boolean;
+    /** Whether or not the input is required */
+    isRequired?: boolean;
     /** Whether or not the input is invalid */
     isInvalid?: boolean;
     /** Whether or not the input is disabled */
     isDisabled?: boolean;
-    /** Whether or not the input is required */
-    isRequired?: boolean;
     /** Styled-components as prop */
     as?: any;
-    /** Whether or not the input is full width */
-    isFull?: boolean;
-    /** Whether or not the input has been touched */
-    touched?: boolean;
     /** Remove border styles */
     minimal?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
-    onChange,
     value,
-    id,
+    touched,
     name,
     type,
+    id,
     label,
     hint,
-    isDisabled,
-    isInvalid,
+    onChange,
     isFull,
-    touched,
+    isInvalid,
+    isDisabled,
     minimal,
     ...props
 }) => {
@@ -82,20 +83,20 @@ const Input: React.FC<InputProps> = ({
             <FormElement
                 label={label}
                 labelFor={id}
-                isRequired={isRequired}
                 hint={hint}
                 validationMessage={errors[name]}
+                isRequired={isRequired}
             >
                 <StyledInput
                     {...props}
-                    isDisabled={isDisabled}
-                    isInvalid={errors[name]}
-                    isFull={isFull}
                     value={value}
-                    onChange={onChange}
-                    type={type}
                     name={name}
+                    type={type}
                     id={id}
+                    onChange={onChange}
+                    isFull={isFull}
+                    isInvalid={errors[name]}
+                    isDisabled={isDisabled}
                     minimal={minimal}
                 />
             </FormElement>

@@ -11,7 +11,7 @@ const StyledForm = styled('form')<FormProps>`
         margin-bottom: ${spacing('xs')};
     }
     ${StyledFormElementWrapper} > textarea {
-        height: 200px;
+        height: ${spacing('50')};
     }
 `;
 

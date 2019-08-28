@@ -58,10 +58,10 @@ const Form: React.FC<FormProps> = ({ children, values, touched, buttonLabel, ...
             {children}
             <Button
                 type='submit'
-                kind='base'
-                shape='rounded'
                 size='xs'
                 variant='primary'
+                kind='base'
+                shape='rounded'
                 isDisabled={isDisabled()}
             >
                 {buttonLabel}

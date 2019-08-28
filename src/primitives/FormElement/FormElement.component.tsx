@@ -12,20 +12,20 @@ export interface FormElementProps {
     label?: string;
     /** Passed as htmlFor to the label */
     labelFor?: string;
-    /** Whether or not to display an asterix before the input */
-    isRequired?: boolean;
     /** Hint to display under the input */
     hint?: string;
     /** Message to display when validating the input */
     validationMessage?: string;
+    /** Whether or not to display an asterix before the input */
+    isRequired?: boolean;
 }
 
 const FormElement: React.FC<FormElementProps> = ({
     label,
     labelFor,
-    isRequired,
     hint,
     validationMessage,
+    isRequired,
     children,
     ...props
 }) => {

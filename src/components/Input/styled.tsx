@@ -11,7 +11,21 @@ const StyledInput = styled('input').attrs(({ isDisabled }: InputProps) => ({
     autocorrect: off;
     autocapitalize: off;
     spellcheck: false;
+
     box-sizing: border-box;
+    ${({ isFull, as }) => {
+        return isFull
+            ? as === 'textarea'
+                ? css`
+                      width: 100%;
+                      height: 100%;
+                  `
+                : css`
+                      width: 100%;
+                  `
+            : css``;
+    }};
+
     &:focus {
         outline: none;
     }
@@ -24,9 +38,9 @@ const StyledInput = styled('input').attrs(({ isDisabled }: InputProps) => ({
     border: 1px solid;
     border-color: ${({ isInvalid }) =>
         isInvalid ? palette('danger', '300') : palette('primary', '500')};
-    border-left: none;
     border-bottom: none;
-
+    border-left: none;
+    border-radius: 5px;
     ${({ minimal }) => {
         return (
             minimal &&
@@ -36,18 +50,6 @@ const StyledInput = styled('input').attrs(({ isDisabled }: InputProps) => ({
         );
     }};
 
-    ${({ isFull, as }) => {
-        return isFull
-            ? as === 'textarea'
-                ? css`
-                      width: 100%;
-                      height: 100%;
-                  `
-                : css`
-                      width: 100%;
-                  `
-            : css``;
-    }}
     padding: ${spacing('xs')} 0 ${spacing('sm')} ${spacing('xs')};
 `;
 

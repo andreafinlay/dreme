@@ -60,11 +60,11 @@ const Entry = sequelize.define(
         },
         createdat: {
             type: Sequelize.DATE,
-            defaultValue: Sequelize.NOW,
+            allowNull: false,
         },
         updatedat: {
             type: Sequelize.DATE,
-            defaultValue: Sequelize.NOW,
+            allowNull: false,
         },
     },
     { timestamps: false }
@@ -73,10 +73,5 @@ const Entry = sequelize.define(
 User.hasMany(Entry);
 
 User.sync({ force: true }).then(() => {
-    Entry.sync({ force: true }).then(() => {
-        return Entry.create({
-            title: 'A Prolegamena To An Emancipatory Theory Of Time',
-            body: 'poo poo pee pee',
-        });
-    });
+    Entry.sync({ force: true });
 });

@@ -4,29 +4,16 @@ import {} from 'dotenv/config';
 import uuidv4 from 'uuid/v4';
 
 import { RootContext } from '../../../context/RootContext';
-import { CREATE_ENTRY } from '../Entries.mutations';
 import { GET_ENTRIES_BY_USERID } from '../Entries.queries';
+import { CREATE_ENTRY } from '../Entries.mutations';
+import { StyledNewEntryForm } from './styled';
 import { Input } from '../../Input';
-import { Button } from '../../Button';
-import { Form } from '../../Form';
 
 const NewEntryForm: React.FC<any> = () => {
-    const [createEntry] = useMutation(CREATE_ENTRY);
     const { authenticated, userId } = useContext(RootContext);
-
+    const [createEntry] = useMutation(CREATE_ENTRY);
     const [values, setValues] = useState({});
-    const [touched, setTouched] = useState({});
-
-    let isDisabled = () => {
-        if (!touched['newEntryTitle'] || !touched['newEntryBody']) {
-            return true;
-        }
-        for (let value in values) {
-            if (values[value] === '') {
-                return true;
-            }
-        }
-    };
+    const [touched, setTouched] = useState({ component: 'newEntry' });
 
     const handleChange = ({ target }: React.FormEvent<any>) => {
         setTouched({
@@ -47,12 +34,14 @@ const NewEntryForm: React.FC<any> = () => {
                 title: values['newEntryTitle'] === '' ? null : values['newEntryTitle'],
                 body: values['newEntryBody'] === '' ? null : values['newEntryBody'],
                 userId: userId,
+                createdat: new Date().toUTCString(),
+                updatedat: new Date().toUTCString(),
             },
             refetchQueries: [{ query: GET_ENTRIES_BY_USERID, variables: { userId: userId } }],
         }).then(data => {
             if (data) {
                 setValues({});
-                setTouched({ newEntryTitle: false, newEntryBody: false });
+                setTouched({ component: 'newEntry' });
             }
         });
     };
@@ -60,45 +49,41 @@ const NewEntryForm: React.FC<any> = () => {
     return (
         <>
             {authenticated && (
-                <Form onSubmit={handleSubmit} noValidate>
+                <StyledNewEntryForm
+                    values={values}
+                    touched={touched}
+                    onSubmit={handleSubmit}
+                    buttonLabel='Create entry'
+                    noValidate
+                >
                     <Input
                         value={values['newEntryTitle'] || ''}
-                        label='Title'
-                        onChange={handleChange}
-                        placeholder='Title'
-                        hint='Give your dream a title'
+                        touched={touched['newEntryTitle']}
                         name='newEntryTitle'
                         type='text'
                         id='new-entry-title'
-                        touched={touched['newEntryTitle']}
+                        label='Title'
+                        placeholder='Title'
+                        hint='Give your dream a title'
+                        onChange={handleChange}
                         isFull
                         isRequired
                     />
                     <Input
                         as='textarea'
                         value={values['newEntryBody'] || ''}
-                        label='Body'
-                        onChange={handleChange}
-                        placeholder='What did you dream of last night?'
-                        hint='Compose your entry'
+                        touched={touched['newEntryBody']}
                         name='newEntryBody'
                         type='text'
                         id='new-entry-body'
-                        touched={touched['newEntryBody']}
+                        label='Body'
+                        placeholder='What did you dream of last night?'
+                        hint='Compose your entry'
+                        onChange={handleChange}
                         isFull
                         isRequired
                     />
-                    <Button
-                        type='submit'
-                        kind='base'
-                        shape='rounded'
-                        size='xs'
-                        variant='primary'
-                        isDisabled={isDisabled()}
-                    >
-                        Create entry
-                    </Button>
-                </Form>
+                </StyledNewEntryForm>
             )}
         </>
     );

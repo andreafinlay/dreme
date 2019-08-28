@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FormElementProps } from './FormElement.component';
+
 import { palette, spacing } from '../../utils';
+import { FormElementProps } from './FormElement.component';
 
 const StyledFormElementWrapper = styled('div')<FormElementProps>`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    height: inherit;
-    margin: 0;
+    margin-bottom: ${spacing('sm')};
 `;
 
 const StyledFormElementLabel = styled(({ isRequired, children, ...props }) => {
@@ -18,20 +18,22 @@ const StyledFormElementLabel = styled(({ isRequired, children, ...props }) => {
             {isRequired && <span title='This field is required'>*</span>}
         </label>
     );
-})<FormElementProps>``;
+})<FormElementProps>`
+    margin-bottom: ${spacing('sm')};
+`;
 
 const StyledFormElementValidationMessage = styled('small')`
     color: ${palette('danger', '500')};
-    margin: ${spacing('0.5')} 0 0 0;
+    margin: ${spacing('0.5')} 0 ${spacing('sm')} 0;
 `;
 
 const StyledFormElementHint = styled('small')`
-    margin: ${spacing('0.5')} 0 0 0;
+    margin: ${spacing('0.5')} 0 ${spacing('sm')} 0;
 `;
 
 export {
-    StyledFormElementWrapper,
     StyledFormElementLabel,
-    StyledFormElementValidationMessage,
     StyledFormElementHint,
+    StyledFormElementValidationMessage,
+    StyledFormElementWrapper,
 };

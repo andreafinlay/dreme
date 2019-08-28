@@ -9,31 +9,15 @@ import { RootContext } from '../../context/RootContext';
 import { REGISTER } from './RegisterForm.mutations';
 import { LOGIN } from '../LoginForm/LoginForm.mutations';
 import { Input } from '../Input';
-import { Button } from '../Button';
 import { Form } from '../Form';
 
 // TODO: Get rid of jwt once authentication/RLS is enabled in Postgres
 const RegisterFormComponent: React.FC<any> = ({ ...props }) => {
+    const { setAuthenticated, setToken, setUserId, setName } = useContext(RootContext);
     const [register] = useMutation(REGISTER);
     const [login] = useMutation(LOGIN);
     const [values, setValues] = useState({});
-    const [touched, setTouched] = useState({});
-    const { setAuthenticated, setToken, setUserId, setName } = useContext(RootContext);
-
-    let isDisabled = () => {
-        for (let value in values) {
-            if (values[value] === '') {
-                return true;
-            }
-        }
-        if (!touched['name'] || (!touched['email'] || !touched['registerPassword'])) {
-            return true;
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values['email'])) {
-            return true;
-        } else if (values['registerPassword'].length < 3) {
-            return true;
-        }
-    };
+    const [touched, setTouched] = useState({ component: 'register' });
 
     const handleChange = ({ target }: React.FormEvent<any>) => {
         setTouched({ ...touched, [(target as HTMLInputElement).name]: true });
@@ -83,10 +67,17 @@ const RegisterFormComponent: React.FC<any> = ({ ...props }) => {
             });
         });
         setValues({});
+        setTouched({ component: 'register' });
     };
 
     return (
-        <Form onSubmit={handleSubmit} noValidate>
+        <Form
+            onSubmit={handleSubmit}
+            noValidate
+            values={values}
+            touched={touched}
+            buttonLabel='Register'
+        >
             <Input
                 value={values['name'] || ''}
                 label='Name'
@@ -116,16 +107,6 @@ const RegisterFormComponent: React.FC<any> = ({ ...props }) => {
                 hint='At least 3 characters long'
                 id='register-password'
             />
-            <Button
-                type='submit'
-                kind='base'
-                shape='rounded'
-                size='xs'
-                variant='primary'
-                isDisabled={isDisabled()}
-            >
-                Register
-            </Button>
         </Form>
     );
 };

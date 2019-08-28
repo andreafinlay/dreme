@@ -7,7 +7,6 @@ import jwt from 'jsonwebtoken';
 import { RootContext } from '../../context/RootContext';
 import { LOGIN } from './LoginForm.mutations';
 import { Input } from '../Input';
-import { Button } from '../Button';
 import { Form } from '../Form';
 
 // TODO: Get rid of jwt once authentication/RLS is enabled in Postgres
@@ -15,22 +14,7 @@ const Login: React.FC<any> = ({ ...props }) => {
     const { setAuthenticated, setToken, setUserId, setName } = useContext(RootContext);
     const [login] = useMutation(LOGIN);
     const [values, setValues] = useState({});
-    const [touched, setTouched] = useState({});
-
-    let isDisabled = () => {
-        for (let value in values) {
-            if (values[value] === '') {
-                return true;
-            }
-        }
-        if (!touched['email'] || !touched['loginPassword']) {
-            return true;
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values['email'])) {
-            return true;
-        } else if (values['loginPassword'].length < 3) {
-            return true;
-        }
-    };
+    const [touched, setTouched] = useState({ component: 'login' });
 
     const handleChange = ({ target }: React.FormEvent<any>) => {
         setTouched({ ...touched, [(target as HTMLInputElement).name]: true });
@@ -65,10 +49,17 @@ const Login: React.FC<any> = ({ ...props }) => {
             );
         });
         setValues({});
+        setTouched({ component: 'login' });
     };
 
     return (
-        <Form onSubmit={handleSubmit} noValidate>
+        <Form
+            onSubmit={handleSubmit}
+            noValidate
+            values={values}
+            touched={touched}
+            buttonLabel='Log in'
+        >
             <Input
                 value={values['email'] || ''}
                 label='Email'
@@ -90,16 +81,6 @@ const Login: React.FC<any> = ({ ...props }) => {
                 id='login-password'
                 touched={touched['loginPassword']}
             />
-            <Button
-                type='submit'
-                kind='base'
-                shape='rounded'
-                size='xs'
-                variant='primary'
-                isDisabled={isDisabled()}
-            >
-                Log in
-            </Button>
         </Form>
     );
 };

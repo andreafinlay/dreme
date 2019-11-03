@@ -65,7 +65,6 @@ const StyledCard = styled('div')<CardProps>`
     color: ${palette('neutral', '900')};
     background-color: ${palette('neutral', '0')};
     border: solid 1px ${palette('primary', '500')};
-    border-radius: 5px;
 `;
 
 export { StyledHeader, StyledBody, StyledFooter, StyledCard };

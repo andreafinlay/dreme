@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { WEEK_DAYS, CALENDAR_MONTHS } from '../../constants';
-import { Styled } from './styled';
 import calendar, {
     isDate,
     isSameDay,
@@ -9,16 +8,21 @@ import calendar, {
     getNextMonth,
     getPreviousMonth,
 } from '../../helpers/calendar';
+import { usePrevious } from '../../hooks';
+import { Styled } from './styled';
 
 export interface CalendarProps {
-    date?: any;
-    onDateChanged?: any;
+    date?: Date;
+    onDateChanged?: Function;
 }
+
+export type Event = React.ChangeEvent<HTMLInputElement> & React.MouseEvent<HTMLButtonElement>;
 
 const Calendar: React.FC<CalendarProps> = ({ date, onDateChanged }) => {
     let dayTimeout;
     let pressureTimeout;
     let pressureTimer;
+    const prevDate = usePrevious(date);
 
     const [state, setState] = useState({
         today: new Date(),
@@ -27,7 +31,7 @@ const Calendar: React.FC<CalendarProps> = ({ date, onDateChanged }) => {
         year: new Date().getFullYear(),
     });
 
-    const resolveStateFromDate = inputDate => {
+    const resolveState = (inputDate: Date) => {
         const _date = isDate(inputDate) ? inputDate : new Date();
 
         setState({
@@ -38,7 +42,7 @@ const Calendar: React.FC<CalendarProps> = ({ date, onDateChanged }) => {
         });
     };
 
-    const getCalendarDates = () => {
+    const getCalendarDates = (): any[][] => {
         const { current, month, year } = state;
         const calendarMonth = month || +current.getMonth() + 1;
         const calendarYear = year || current.getFullYear();
@@ -46,12 +50,12 @@ const Calendar: React.FC<CalendarProps> = ({ date, onDateChanged }) => {
         return calendar(calendarMonth, calendarYear);
     };
 
-    const gotoDate = inputDate => e => {
+    const gotoDate = (inputDate: Date) => (e: Event) => {
         e && e.preventDefault();
         const { current } = state;
 
         const onDateChangedHandler = () => {
-            resolveStateFromDate(inputDate);
+            resolveState(inputDate);
             typeof onDateChanged === 'function' && onDateChanged(inputDate);
         };
 
@@ -76,7 +80,7 @@ const Calendar: React.FC<CalendarProps> = ({ date, onDateChanged }) => {
         setState({ ...state, year: state.year + 1 });
     };
 
-    const handlePressure = fn => {
+    const handlePressure = (fn: Function) => {
         if (typeof fn === 'function') {
             fn();
             pressureTimeout = setTimeout(() => {
@@ -90,15 +94,15 @@ const Calendar: React.FC<CalendarProps> = ({ date, onDateChanged }) => {
         pressureTimeout && clearTimeout(pressureTimeout);
     };
 
-    const handlePrevious = evt => {
-        evt && evt.preventDefault();
-        const fn = evt.shiftKey ? gotoPreviousYear : gotoPreviousMonth;
+    const handlePrevious = (e: Event) => {
+        e && e.preventDefault();
+        const fn = e.shiftKey ? gotoPreviousYear : gotoPreviousMonth;
         handlePressure(fn);
     };
 
-    const handleNext = evt => {
-        evt && evt.preventDefault();
-        const fn = evt.shiftKey ? gotoNextYear : gotoNextMonth;
+    const handleNext = (e: Event) => {
+        e && e.preventDefault();
+        const fn = e.shiftKey ? gotoNextYear : gotoNextMonth;
         handlePressure(fn);
     };
 
@@ -106,17 +110,7 @@ const Calendar: React.FC<CalendarProps> = ({ date, onDateChanged }) => {
         dayTimeout && clearTimeout(dayTimeout);
     };
 
-    const usePrevious = value => {
-        const ref = useRef();
-        useEffect(() => {
-            ref.current = value;
-        });
-        return ref.current;
-    };
-
-    const prevDate = usePrevious(date);
-
-    const renderMonthAndYear = () => {
+    const renderMonthAndYear = (): React.ReactNode => {
         const { month, year } = state;
 
         const monthname = Object.keys(CALENDAR_MONTHS)[Math.max(0, Math.min(month - 1, 11))];
@@ -146,7 +140,7 @@ const Calendar: React.FC<CalendarProps> = ({ date, onDateChanged }) => {
         );
     };
 
-    const renderDayLabel = (day, index) => {
+    const renderDayLabel = (day: string, index: number): React.ReactNode => {
         const daylabel = WEEK_DAYS[day].toUpperCase();
         return (
             <Styled.CalendarDay key={daylabel} index={index}>
@@ -155,7 +149,7 @@ const Calendar: React.FC<CalendarProps> = ({ date, onDateChanged }) => {
         );
     };
 
-    const renderCalendarDate = (inputDate, index) => {
+    const renderCalendarDate = (inputDate: [][], index: number): React.ReactNode => {
         const { current, month, year, today } = state;
         const _date = new Date(inputDate.join('-'));
 
@@ -194,7 +188,7 @@ const Calendar: React.FC<CalendarProps> = ({ date, onDateChanged }) => {
         }, ms);
 
         const onDateMatchFailed = () => {
-            resolveStateFromDate(date);
+            resolveState(date!);
             typeof onDateChanged === 'function' && onDateChanged(date);
         };
 
@@ -208,7 +202,7 @@ const Calendar: React.FC<CalendarProps> = ({ date, onDateChanged }) => {
         date,
         isSameDay,
         dayTimeout,
-        resolveStateFromDate,
+        resolveState,
         onDateChanged,
         clearDayTimeout,
         clearPressureTimer,

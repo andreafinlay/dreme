@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyledHeader, StyledBody, StyledFooter, StyledCard } from './styled';
 
-export type CardDirection = 'horizontal' | 'vertical';
+export type CardOrientation = 'horizontal' | 'vertical';
 
 export interface CardProps {
     /** Title of the card */
@@ -11,15 +11,15 @@ export interface CardProps {
     /** Tect to dislay in the footer */
     footer?: string | React.ReactNode;
     /** The direction of the card */
-    direction?: CardDirection;
+    orientation: CardOrientation;
 }
 
-const Card: React.FC<CardProps> = ({ title, body, footer, direction }) => {
+const Card: React.FC<CardProps> = ({ title, body, footer, orientation }) => {
     return (
-        <StyledCard direction={direction}>
-            <StyledHeader direction={direction}>{title}</StyledHeader>
-            <StyledBody direction={direction}>{body}</StyledBody>
-            <StyledFooter direction={direction}>{footer}</StyledFooter>
+        <StyledCard orientation={orientation}>
+            <StyledHeader orientation={orientation}>{title}</StyledHeader>
+            <StyledBody orientation={orientation}>{body}</StyledBody>
+            <StyledFooter orientation={orientation}>{footer}</StyledFooter>
         </StyledCard>
     );
 };

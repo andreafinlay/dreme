@@ -12,8 +12,8 @@ import { usePrevious } from '../../hooks';
 import { Styled } from './styled';
 
 export interface CalendarProps {
-    date?: Date;
-    onDateChanged?: Function;
+    date: Date;
+    onDateChanged: Function;
 }
 
 export type Event = React.ChangeEvent<HTMLInputElement> & React.MouseEvent<HTMLButtonElement>;
@@ -126,7 +126,9 @@ const Calendar: React.FC<CalendarProps> = ({ date, onDateChanged }) => {
                 >
                     {'<'}
                 </Styled.Arrow>
-                {monthname} {year}
+                <Styled.Title>
+                    {monthname} {year}
+                </Styled.Title>
                 <Styled.Arrow
                     onMouseDown={handleNext}
                     onMouseUp={clearPressureTimer}
@@ -141,7 +143,7 @@ const Calendar: React.FC<CalendarProps> = ({ date, onDateChanged }) => {
     };
 
     const renderDayLabel = (day: string, index: number): React.ReactNode => {
-        const daylabel = WEEK_DAYS[day].toUpperCase();
+        const daylabel = WEEK_DAYS[day];
         return (
             <Styled.CalendarDay key={daylabel} index={index}>
                 {daylabel}

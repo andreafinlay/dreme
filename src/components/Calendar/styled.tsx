@@ -25,6 +25,10 @@ const Header = styled('div')`
     color: ${palette('primary', '500')};
 `;
 
+const Title = styled.div`
+    pointer-events: none;
+`;
+
 const Arrow = styled(Button)<ButtonProps>``;
 
 const CalendarDay = styled.div`
@@ -32,7 +36,7 @@ const CalendarDay = styled.div`
     border: 1px solid transparent;
     display: flex;
     align-items: flex-start;
-    cursor: pointer;
+    pointer-events: none;
 `;
 
 const CalendarDate = styled.div<{ inMonth?: boolean }>`
@@ -75,6 +79,7 @@ const TodayCalendarDate = styled(HighlightedCalendarDate)`
 export const Styled = {
     Arrow,
     Header,
+    Title,
     Calendar,
     CalendarDay,
     CalendarGrid,

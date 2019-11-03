@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react';
-import {} from 'dotenv/config';
 import { useQuery } from '@apollo/react-hooks';
 
 import { RootContext } from '../../../context/RootContext';
@@ -14,34 +13,40 @@ import {
 } from './styled';
 import { Heading } from '../../Heading';
 import { Button } from '../../Button';
+import { useBreakpoint } from '../../../hooks';
+
+export type EntriesListOrientation = 'vertical' | 'horizontal';
+export type EntriesListSortOrder = 'newest' | 'oldest';
 
 export interface EntriesListProps {
     /** The orientation of the page */
-    orientation?: string;
+    orientation?: EntriesListOrientation;
     /** The sort order of the list */
-    sortOrder?: string;
+    sortOrder?: EntriesListSortOrder;
 }
 
-const EntriesList: React.FC<any> = () => {
+const EntriesList: React.FC<EntriesListProps> = () => {
     const { authenticated, userId } = useContext(RootContext);
+    const isMobile = !useBreakpoint('md');
+
     const { data } = useQuery(GET_ENTRIES_BY_USERID, {
         variables: { userId: userId },
     });
-    const [direction, setDirection] = useState('vertical');
+    const [orientation, setOrientation] = useState('vertical');
     const [sortOrder, setSortOrder] = useState('newest');
     const [nodes, setNodes] = useState([] as any);
 
-    const parseTime = time => {
+    const parseTime = (time: string) => {
         const parsedTime = time.split('');
         parsedTime.length = 8;
         parsedTime.join('');
         return parsedTime;
     };
 
-    const toggleDirection = () => {
-        return direction === 'vertical'
-            ? (setSortOrder('newest'), setDirection('horizontal'))
-            : (setSortOrder('newest'), setDirection('vertical'));
+    const toggleOrientation = () => {
+        return orientation === 'vertical'
+            ? (setSortOrder('newest'), setOrientation('horizontal'))
+            : (setSortOrder('newest'), setOrientation('vertical'));
     };
 
     const toggleSortOrder = () => {
@@ -57,10 +62,12 @@ const EntriesList: React.FC<any> = () => {
                 : setNodes(data.allEntries.nodes.reverse());
         }
 
+        isMobile && setOrientation('vertical');
+
         return () => {
             setNodes([]);
         };
-    }, [data, sortOrder]);
+    }, [data, sortOrder, isMobile]);
 
     return (
         <>
@@ -69,15 +76,17 @@ const EntriesList: React.FC<any> = () => {
                     <StyledEntriesListHeader>
                         <Heading as='h1'>Entries</Heading>
                         <StyledEntriesListActions>
-                            <Button
-                                size='xs'
-                                variant='primary'
-                                kind='base'
-                                shape='rounded'
-                                onClick={toggleDirection}
-                            >
-                                Layout: {direction === 'vertical' ? 'grid' : 'list'}
-                            </Button>
+                            {isMobile && (
+                                <Button
+                                    size='xs'
+                                    variant='primary'
+                                    kind='base'
+                                    shape='rounded'
+                                    onClick={toggleOrientation}
+                                >
+                                    Layout: {orientation === 'vertical' ? 'grid' : 'list'}
+                                </Button>
+                            )}
                             <Button
                                 size='xs'
                                 variant='primary'
@@ -90,13 +99,13 @@ const EntriesList: React.FC<any> = () => {
                         </StyledEntriesListActions>
                     </StyledEntriesListHeader>
                     <StyledEntriesList>
-                        <StyledEntriesListRow orientation={direction}>
+                        <StyledEntriesListRow orientation={orientation}>
                             {nodes.map(entry => {
                                 const date = new Date(entry.createdat).toDateString();
                                 const time = parseTime(new Date(entry.createdat).toTimeString());
                                 return (
                                     <StyledEntriesCard
-                                        direction={direction}
+                                        orientation={orientation}
                                         key={entry.id}
                                         title={entry.title}
                                         body={entry.body}

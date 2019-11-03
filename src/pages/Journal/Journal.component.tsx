@@ -7,24 +7,26 @@ import { EntriesList, NewEntryForm } from '../../components/Entries';
 import { Calendar } from '../../components/Calendar';
 
 const StyledJournalPage = styled('div')`
-    padding: ${spacing('12')};
+    padding: 0 ${spacing('jb')} 0 ${spacing('jb')};
+    ${({ theme }) => theme.breakpoint('sm')`
+        padding: 0 ${spacing('lg')} 0 ${spacing('lg')};
+    `}
 `;
 
 const StyledJournalWrapper = styled('div')`
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-top: ${spacing('sm')};
     ${({ theme }) => theme.breakpoint('md')`
         flex-direction: column;
     `}
 `;
 
-const StyledJournalHeader = styled('div')`
+const StyledJournalSection = styled('div')`
     display: flex;
-    & > * {
-        width: 100%;
-    }
+    flex-direction: column;
+    width: 100%;
+    margin-top: ${spacing('jb')};
 `;
 
 const Journal: React.FC<any> = () => {
@@ -36,15 +38,19 @@ const Journal: React.FC<any> = () => {
 
     return (
         <StyledJournalPage>
-            <StyledJournalHeader>
-                <Heading as='h1'>Create a new entry</Heading>
-                <Heading as='h1'>Calendar</Heading>
-            </StyledJournalHeader>
             <StyledJournalWrapper>
-                <NewEntryForm />
-                <Calendar date={date} onDateChanged={handleDateChange} />
+                <StyledJournalSection>
+                    <Heading as='h1'>Create a new entry</Heading>
+                    <NewEntryForm />
+                </StyledJournalSection>
+                <StyledJournalSection>
+                    <Heading as='h1'>Calendar</Heading>
+                    <Calendar date={date} onDateChanged={handleDateChange} />
+                </StyledJournalSection>
             </StyledJournalWrapper>
-            <EntriesList />
+            <StyledJournalSection>
+                <EntriesList />
+            </StyledJournalSection>
         </StyledJournalPage>
     );
 };

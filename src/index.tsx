@@ -15,25 +15,28 @@ import { Dashboard } from './pages/Dashboard';
 import { Journal } from './pages/Journal/';
 import { NotFound } from './pages/NotFound';
 import './index.css';
+import { ResponsiveProvider } from './utils/responsive';
 
 ReactDOM.render(
     <ApolloProvider client={client}>
         <Authenticate>
             <ApolloConsumer>
                 {client => (
-                    <ThemeProvider theme={theme}>
-                        <Router>
-                            <NavBar />
-                            <Switch>
-                                <Route exact path='/' component={Home} />
-                                <Route exact path='/register' component={Register} />
-                                <Route exact path='/login' component={Login} />
-                                <Route exact path='/dashboard' component={Dashboard} />
-                                <Route exact path='/journal' component={Journal} />
-                                <Route component={NotFound} />
-                            </Switch>
-                        </Router>
-                    </ThemeProvider>
+                    <ResponsiveProvider theme={theme}>
+                        <ThemeProvider theme={{ ...theme }}>
+                            <Router>
+                                <NavBar />
+                                <Switch>
+                                    <Route exact path='/' component={Home} />
+                                    <Route exact path='/register' component={Register} />
+                                    <Route exact path='/login' component={Login} />
+                                    <Route exact path='/dashboard' component={Dashboard} />
+                                    <Route exact path='/journal' component={Journal} />
+                                    <Route component={NotFound} />
+                                </Switch>
+                            </Router>
+                        </ThemeProvider>
+                    </ResponsiveProvider>
                 )}
             </ApolloConsumer>
         </Authenticate>

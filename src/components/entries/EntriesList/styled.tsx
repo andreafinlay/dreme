@@ -4,23 +4,24 @@ import { spacing } from '../../../utils';
 import { EntriesListProps } from './';
 import { Card } from '../../Card';
 
-const StyledEntriesListWrapper = styled('div')`
-    margin-top: ${spacing('lg')};
-`;
+const StyledEntriesListWrapper = styled.div``;
 
-const StyledEntriesList = styled('div')`
+const StyledEntriesList = styled.div`
     display: flex;
     & > * {
         margin-bottom: ${spacing('xs')};
     }
+    ${({ theme }) => theme.breakpoint('md')`
+        flex-direction: column;
+    `}
 `;
 
-const StyledEntriesListHeader = styled('div')`
+const StyledEntriesListHeader = styled.div`
     display: flex;
     justify-content: space-between;
 `;
 
-const StyledEntriesListActions = styled('div')`
+const StyledEntriesListActions = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -30,17 +31,19 @@ const StyledEntriesListActions = styled('div')`
     }
 `;
 
-const StyledEntriesListRow = styled('div')<EntriesListProps>`
+const StyledEntriesListRow = styled.div<EntriesListProps>`
     ${({ orientation }) => {
         return orientation && orientation === 'vertical'
             ? css`
                   display: flex;
                   flex-wrap: wrap;
-                  justify-content: center;
                   height: ${spacing('72')};
-                  &:not:last-child {
-                      justify-content: center;
-                  }
+                  ${({ theme }) => theme.breakpoint('md')`
+                        height: 100%;
+                        & > * {
+                            width: 100%;
+                        }
+                  `}
               `
             : css``;
     }}

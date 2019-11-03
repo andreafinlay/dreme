@@ -3,9 +3,9 @@ import styled, { css } from 'styled-components';
 import { palette, spacing } from '../../utils';
 import { CardProps } from './Card.component';
 
-const StyledHeader = styled('div')<CardProps>`
-    ${({ direction }) => {
-        return direction === 'horizontal'
+const StyledHeader = styled.div<CardProps>`
+    ${({ orientation }) => {
+        return orientation === 'horizontal'
             ? css`
                   width: 15%;
                   border-right: solid 1px ${palette('primary', '500')};
@@ -21,23 +21,23 @@ const StyledHeader = styled('div')<CardProps>`
     padding: ${spacing('md')};
 `;
 
-const StyledBody = styled('div')<CardProps>`
-    ${({ direction }) => {
-        return direction === 'horizontal'
+const StyledBody = styled.div<CardProps>`
+    ${({ orientation }) => {
+        return orientation === 'horizontal'
             ? css`
                   width: 100%;
               `
             : css`
-                  height: 75%;
                   overflow: scroll;
+                  height: 100%;
               `;
     }};
     padding: ${spacing('md')};
 `;
 
-const StyledFooter = styled('div')<CardProps>`
-    ${({ direction }) => {
-        return direction === 'horizontal'
+const StyledFooter = styled.div<CardProps>`
+    ${({ orientation }) => {
+        return orientation === 'horizontal'
             ? css`
                   width: 16%;
                   white-space: nowrap;
@@ -51,16 +51,16 @@ const StyledFooter = styled('div')<CardProps>`
     padding: ${spacing('md')};
 `;
 
-const StyledCard = styled('div')<CardProps>`
+const StyledCard = styled.div<CardProps>`
     display: flex;
-    ${({ direction }) => {
-        return direction === 'vertical'
-            ? css`
+    ${({ orientation }) => {
+        return orientation === 'horizontal'
+            ? css``
+            : css`
                   width: 31%;
                   height: 100%;
                   flex-direction: column;
-              `
-            : css``;
+              `;
     }}
     color: ${palette('neutral', '900')};
     background-color: ${palette('neutral', '0')};

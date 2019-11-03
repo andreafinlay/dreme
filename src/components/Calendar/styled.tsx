@@ -11,7 +11,7 @@ const Calendar = styled('div')`
 const CalendarGrid = styled('div')`
     display: grid;
     height: 80%;
-    grid-template: repeat(7, auto) / repeat(7, auto);
+    grid-template-columns: repeat(7, minmax(${spacing('md')}, 1fr));
     grid-gap: ${spacing('xs')};
     padding-right: ${spacing('md')};
     padding-left: ${spacing('md')};
@@ -32,6 +32,7 @@ const Title = styled.div`
 const Arrow = styled(Button)<ButtonProps>``;
 
 const CalendarDay = styled.div`
+    grid-column: ${props => (props.index % 7) + 1} / span 1;
     color: ${palette('primary', '500')};
     border: 1px solid transparent;
     display: flex;
@@ -40,6 +41,7 @@ const CalendarDay = styled.div`
 `;
 
 const CalendarDate = styled.div<{ inMonth?: boolean }>`
+    grid-column: ${props => (props.index % 7) + 1} / span 1;
     cursor: pointer;
     border-right: 1px solid transparent;
     border-top: 1px solid transparent;
@@ -51,7 +53,6 @@ const CalendarDate = styled.div<{ inMonth?: boolean }>`
         border-top: 1px solid ${palette('secondary', '700')};
     }
     padding-top: ${spacing('xs')};
-    padding-left: ${spacing('xs')};
     ${({ inMonth }) =>
         !inMonth &&
         css`

@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { spacing } from '../../utils';
-import { EntriesList, NewEntryForm } from '../../components/Entries';
 import { Heading } from '../../components/Heading';
+import { EntriesList, NewEntryForm } from '../../components/Entries';
+import { Calendar } from '../../components/Calendar';
 
-const StyledFormPage = styled('div')`
+const StyledJournalPage = styled('div')`
     padding: ${spacing('12')};
 `;
 
-const StyledNewEntryFormWrapper = styled('div')`
+const StyledJournalWrapper = styled('div')`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
     margin-top: ${spacing('sm')};
+    ${({ theme }) => theme.breakpoint('md')`
+        flex-direction: column;
+    `}
 `;
 
-const StyledNewEntryFormHeader = styled('div')`
+const StyledJournalHeader = styled('div')`
     display: flex;
     & > * {
         width: 100%;
@@ -21,17 +28,24 @@ const StyledNewEntryFormHeader = styled('div')`
 `;
 
 const Journal: React.FC<any> = () => {
+    const [date, setDate] = useState(new Date());
+
+    const handleDateChange = currentDate => {
+        date !== currentDate && setDate(currentDate);
+    };
+
     return (
-        <StyledFormPage>
-            <StyledNewEntryFormHeader>
+        <StyledJournalPage>
+            <StyledJournalHeader>
                 <Heading as='h1'>Create a new entry</Heading>
                 <Heading as='h1'>Calendar</Heading>
-            </StyledNewEntryFormHeader>
-            <StyledNewEntryFormWrapper>
+            </StyledJournalHeader>
+            <StyledJournalWrapper>
                 <NewEntryForm />
-            </StyledNewEntryFormWrapper>
+                <Calendar date={date} onDateChanged={handleDateChange} />
+            </StyledJournalWrapper>
             <EntriesList />
-        </StyledFormPage>
+        </StyledJournalPage>
     );
 };
 

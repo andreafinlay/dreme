@@ -40,7 +40,6 @@ const StyledInput = styled('input').attrs(({ isDisabled }: InputProps) => ({
         isInvalid ? palette('danger', '300') : palette('primary', '500')};
     border-bottom: none;
     border-left: none;
-    border-radius: 5px;
     ${({ minimal }) => {
         return (
             minimal &&

@@ -36,7 +36,7 @@
         "no-string-literal": false,
         "no-switch-case-fall-through": true,
         "no-trailing-whitespace": true,
-        "no-unused-expression": true,
+        "no-unused-expression": [true, "allow-fast-null-checks"],
         "no-unused-variable": true,
         "no-use-before-declare": true,
         "no-var-keyword": true,

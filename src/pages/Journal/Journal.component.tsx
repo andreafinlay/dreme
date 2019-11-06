@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { spacing } from '../../utils';
 import { Heading } from '../../components/Heading';
-import { EntriesList, NewEntryForm } from '../../components/EntriesTest';
+import { EntriesList, NewEntryForm } from '../../components/Entries';
 import { Calendar } from '../../components/Calendar';
 
 const StyledJournalPage = styled('div')`
